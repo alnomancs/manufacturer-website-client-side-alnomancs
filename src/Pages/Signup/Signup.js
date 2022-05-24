@@ -1,31 +1,58 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import googleIcon from "../../images/google.png";
 
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
+import useToken from "../../hooks/useToken";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  let signUpErrorMessage;
+
+  //Email and password signup
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
   // Social Login google
   const [signInWithGoogle, googleUser, googlLoading, googleError] =
     useSignInWithGoogle(auth);
 
-  let signInErrorMessage;
+  const [token] = useToken(user || googleUser);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  if (googlLoading) return <Loading></Loading>;
-  if (googleError) return console.log(googleError.message);
-  if (googleUser) {
-    console.log(googleUser);
+  if (loading || googlLoading || updating) return <Loading></Loading>;
+  if (error || googleError || updateError) {
+    signUpErrorMessage = (
+      <p className="font-bold text-red-500">
+        {error?.message || googleError?.message || updateError?.message}
+      </p>
+    );
   }
-  const onSubmit = (data) => {
+  if (user || googleUser) {
+    console.log(googleUser || user);
+    // navigate(from, { replace: true });
+  }
+
+  const onSubmit = async (data) => {
     console.log(data);
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
   };
   return (
     <div className="hero min-h-screen bg-gradient-to-r from-slate-500 to-emerald-100 rounded-2xl">
@@ -45,10 +72,6 @@ const Signup = () => {
                   className="input input-bordered w-full max-w-xs"
                   {...register("name", {
                     required: { value: true, message: "Name is Required" },
-                    //   pattern: {
-                    //     value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                    //     message: "Provide a valid Email",
-                    //   },
                   })}
                 />
                 <label className="label">
@@ -57,11 +80,6 @@ const Signup = () => {
                       {errors.name.message}
                     </span>
                   )}
-                  {/* {errors.email?.type === "pattern" && (
-                  <span className="label-text-alt text-red-700">
-                    {errors.email.message}
-                  </span>
-                )} */}
                 </label>
               </div>
               {/* Email */}
@@ -132,7 +150,7 @@ const Signup = () => {
                   Forget Password
                 </Link>
               </p>
-              {signInErrorMessage}
+              {signUpErrorMessage}
               <input
                 type="submit"
                 value="Signup"
@@ -155,35 +173,6 @@ const Signup = () => {
               <img className="w-8 mx-2" src={googleIcon} alt="" /> Countinue
               With Google
             </button>
-
-            {/* <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="text"
-                placeholder="email"
-                className="input input-bordered"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="text"
-                placeholder="password"
-                className="input input-bordered"
-              />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
-            </div>
-            <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
-            </div> */}
           </div>
         </div>
       </div>
