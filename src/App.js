@@ -7,7 +7,7 @@ import Signup from "./Pages/Signup/Signup";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App max-w-7xl mx-auto">
       <Navbar></Navbar>
 
       <Routes>
