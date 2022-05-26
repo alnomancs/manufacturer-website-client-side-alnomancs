@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
 const Purchase = () => {
+  const [user, loading, error] = useAuthState(auth);
   const [qty, setQty] = useState(false);
 
   const { id } = useParams();
@@ -17,16 +20,33 @@ const Purchase = () => {
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data.qty);
-    console.log(product.minimumQty);
-    console.log(product.availableQty);
+  if (loading) return <Loading></Loading>;
+  if (error) return console.log(error);
 
-    if (data.qty >= product.minimumQty || data.qty <= product.availableQty) {
-      toast.success("done");
-    } else {
-      toast.error("Please update your quantity");
-    }
+  const onSubmit = (data) => {
+    const order = {
+      productId: product._id,
+      productName: product.name,
+      productPrice: product.price,
+      orderQty: data.qty,
+      clientEmail: user.email,
+      paymentStatus: "unpaid",
+    };
+    console.log(order);
+
+    //send order to database
+    fetch("http://localhost:5001/order", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((inserted) => {
+        toast("Your order placed");
+        console.log(inserted);
+      });
   };
 
   if (isLoading) return <Loading></Loading>;
@@ -53,9 +73,8 @@ const Purchase = () => {
                   type="number"
                   {...register("qty", {
                     onChange: (e) => {
-                      console.log(product.minimumQty);
                       const qty = e.target.value;
-                      console.log(qty);
+
                       if (
                         parseInt(qty) >= parseInt(product.minimumQty) &&
                         parseInt(qty) <= parseInt(product.availableQty)
@@ -72,7 +91,7 @@ const Purchase = () => {
                 />
 
                 <input
-                  value="Pay now"
+                  value="Order now"
                   type="submit"
                   className="mt-5 btn btn-primary"
                   disabled={qty ? false : true}

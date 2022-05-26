@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import AddProduct from "./Pages/Dashborad/AddProduct";
 import Dashboard from "./Pages/Dashborad/Dashboard";
+import MyOrders from "./Pages/Dashborad/MyOrders";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Purchase from "./Pages/Purchase/Purchase";
@@ -36,6 +37,7 @@ function App() {
             </RequireAuth>
           }
         >
+          <Route index element={<MyOrders></MyOrders>}></Route>
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
         </Route>
         <Route path="/login" element={<Login></Login>}></Route>
