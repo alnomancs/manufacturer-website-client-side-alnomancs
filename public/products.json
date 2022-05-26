@@ -1,0 +1,30 @@
+[
+    {
+        "name": "hammer 1",
+        "minimumQty": "6",
+        "availableQty":"120",
+        "price": "123",
+        "img": "https://i.ibb.co/0Bn2482/salessupport-new.png"
+    },
+    {
+        "name": "hammer 2",
+        "minimumQty": "6",
+        "availableQty":"120",
+        "price": "123",
+        "img": "https://i.ibb.co/0Bn2482/salessupport-new.png"
+    },
+    {
+        "name": "hammer 3",
+        "minimumQty": "6",
+        "availableQty":"120",
+        "price": "123",
+        "img": "https://i.ibb.co/0Bn2482/salessupport-new.png"
+    },
+    {
+        "name": "hammer 4",
+        "minimumQty": "6",
+        "availableQty":"120",
+        "price": "123",
+        "img": "https://i.ibb.co/0Bn2482/salessupport-new.png"
+    }
+]
