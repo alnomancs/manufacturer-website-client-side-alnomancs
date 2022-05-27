@@ -1,25 +1,18 @@
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
-import Loading from "../Shared/Loading";
-import CancleModal from "./CancleModal";
-import OrderRow from "./OrderRow";
+import AllOrdersRow from "./AllOrdersRow";
 
-const MyOrders = () => {
-  const [cancleOrder, setCancleOrder] = useState(null);
-  const [user, loading, error] = useAuthState(auth);
+const AllOrders = () => {
   const navigate = useNavigate();
-
   const {
     data: orders,
     isLoading,
     isError,
-    refetch,
   } = useQuery("users", () =>
-    fetch(`http://localhost:5001/orders?clientEmail=${user.email}`, {
+    fetch(`http://localhost:5001/orders`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -33,8 +26,6 @@ const MyOrders = () => {
       return res.json();
     })
   );
-  if (loading || isLoading) return <Loading></Loading>;
-  if (error || isError) return console.log(error);
 
   return (
     <div className="overflow-auto">
@@ -44,37 +35,26 @@ const MyOrders = () => {
         <table className="table relative w-full">
           <thead>
             <tr>
-              <th className="sticky top-0"></th>
+              <th className="sticky top-0">Sl</th>
               <th className="sticky top-0">Product Name</th>
               <th className="sticky top-0">Quantity</th>
               <th className="sticky top-0">Price</th>
               <th className="sticky top-0">Total</th>
-              <th className="sticky top-0">Status</th>
             </tr>
           </thead>
           <tbody>
             {orders?.map((order, index) => (
-              <OrderRow
+              <AllOrdersRow
                 key={order?._id}
                 order={order}
                 index={index}
-                refetch={refetch}
-                setCancleOrder={setCancleOrder}
-              ></OrderRow>
+              ></AllOrdersRow>
             ))}
           </tbody>
         </table>
       </div>
-      {cancleOrder && (
-        <CancleModal
-          key={cancleOrder?._id}
-          cancleOrder={cancleOrder}
-          setCancleOrder={setCancleOrder}
-          refetch={refetch}
-        ></CancleModal>
-      )}
     </div>
   );
 };
 
-export default MyOrders;
+export default AllOrders;

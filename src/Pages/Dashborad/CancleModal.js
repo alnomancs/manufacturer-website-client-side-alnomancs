@@ -14,7 +14,6 @@ const CancleModal = ({ cancleOrder, setCancleOrder, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
       });
 
     toast.success("your order has been cancled");

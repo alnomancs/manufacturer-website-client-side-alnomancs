@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import AddProduct from "./Pages/Dashborad/AddProduct";
 import AddReview from "./Pages/Dashborad/AddReview";
+import AllOrders from "./Pages/Dashborad/AllOrders";
+import AllUser from "./Pages/Dashborad/AllUser";
 import Dashboard from "./Pages/Dashborad/Dashboard";
 import MyOrders from "./Pages/Dashborad/MyOrders";
 import MyProfile from "./Pages/Dashborad/MyProfile";
@@ -52,6 +54,8 @@ function App() {
           ></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
           <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
+          <Route path="users" element={<AllUser></AllUser>}></Route>
+          <Route path="allOrders" element={<AllOrders></AllOrders>}></Route>
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
         </Route>
         <Route path="/login" element={<Login></Login>}></Route>
