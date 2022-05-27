@@ -7,6 +7,7 @@ import AddProduct from "./Pages/Dashborad/AddProduct";
 import AddReview from "./Pages/Dashborad/AddReview";
 import Dashboard from "./Pages/Dashborad/Dashboard";
 import MyOrders from "./Pages/Dashborad/MyOrders";
+import MyProfile from "./Pages/Dashborad/MyProfile";
 import Payment from "./Pages/Dashborad/Payment";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
@@ -50,6 +51,7 @@ function App() {
             }
           ></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
+          <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
         </Route>
         <Route path="/login" element={<Login></Login>}></Route>
