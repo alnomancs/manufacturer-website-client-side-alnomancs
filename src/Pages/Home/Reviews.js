@@ -1,8 +1,19 @@
-import React from "react";
-import Review from "../Review/Review";
+import React, { useEffect, useState } from "react";
+import Review from "./Review";
 import divider from "../../images/Ozar_O2-1.png";
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5001/reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setReviews(data);
+      });
+  }, []);
+
   return (
     <div className="mt-10 flex flex-col w-full border-opacity-50">
       <div>
@@ -14,9 +25,9 @@ const Reviews = () => {
         Check what a selection of them have to say about us.
       </h1>
       <div className=" mt-10 grid justify-items-center lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
-        <Review></Review>
-        <Review></Review>
-        <Review></Review>
+        {reviews.map((review) => (
+          <Review key={review._id} review={review}></Review>
+        ))}
       </div>
     </div>
   );

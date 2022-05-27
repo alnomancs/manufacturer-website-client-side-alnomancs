@@ -1,8 +1,9 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
@@ -10,12 +11,25 @@ import Loading from "../Shared/Loading";
 const Purchase = () => {
   const [user, loading, error] = useAuthState(auth);
   const [qty, setQty] = useState(false);
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const url = `http://localhost:5001/purchase/${id}`;
 
   const { data: product, isLoading } = useQuery(["purchase", id], () =>
-    fetch(url).then((res) => res.json())
+    fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("accessToken");
+        return navigate("/");
+      }
+      return res.json();
+    })
   );
 
   const { register, handleSubmit } = useForm();
@@ -60,6 +74,7 @@ const Purchase = () => {
           className="max-w-sm rounded-lg shadow-2xl"
         />
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <h1 className="text-5xl">Purchase Product</h1>
           <div className="card-body">
             <div className="card-body text-left">
               <h2 className="card-title">{product.name}</h2>

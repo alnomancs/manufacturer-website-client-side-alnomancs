@@ -10,6 +10,7 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
+import useToken from "../../hooks/useToken";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Signup = () => {
   const [signInWithGoogle, googleUser, googlLoading, googleError] =
     useSignInWithGoogle(auth);
 
-  //const [token] = useToken(user || googleUser);
+  const [token] = useToken(user || googleUser);
 
   const {
     register,
@@ -43,8 +44,11 @@ const Signup = () => {
       </p>
     );
   }
-  if (user || googleUser) {
-    console.log(googleUser || user);
+  // if (user || googleUser) {
+  //   console.log(googleUser || user);
+  //   navigate(from, { replace: true });
+  // }
+  if (token) {
     navigate(from, { replace: true });
   }
 

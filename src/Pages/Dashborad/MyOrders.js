@@ -1,41 +1,17 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 import CancleModal from "./CancleModal";
 import OrderRow from "./OrderRow";
 
 const MyOrders = () => {
-  //const [orders, setOrders] = useState([]);
   const [cancleOrder, setCancleOrder] = useState(null);
   const [user, loading, error] = useAuthState(auth);
-
-  //   useEffect(() => {
-  //     if (user) {
-  //       fetch(`http://localhost:5001/order?clientEmail=${user.email}`, {
-  //         method: "GET",
-  //         headers: {
-  //           "content-type": "application/json",
-  //           //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         },
-  //       })
-  //         .then((res) => {
-  //           //   if (res.status === 401 || res.status === 403) {
-  //           //     signOut(auth);
-  //           //     localStorage.removeItem("accessToken");
-  //           //     return navigate("/");
-  //           //   }
-
-  //           return res.json();
-  //         })
-  //         .then((data) => {
-  //           console.log(data);
-  //           setOrders(data);
-  //         });
-  //     }
-  //     // eslint-disable-next-line
-  //   }, [user]);
+  const navigate = useNavigate();
 
   const {
     data: orders,
@@ -46,17 +22,23 @@ const MyOrders = () => {
     fetch(`http://localhost:5001/orders?clientEmail=${user.email}`, {
       method: "GET",
       headers: {
-        // authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    }).then((res) => res.json())
+    }).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("accessToken");
+        return navigate("/");
+      }
+      return res.json();
+    })
   );
-
   if (loading || isLoading) return <Loading></Loading>;
   if (error || isError) return console.log(error);
 
   return (
     <div className="overflow-auto">
-      <h2 className="text-2xl ">my orders {orders?.length}</h2>
+      <h2 className="text-5xl ">My orders {orders?.length}</h2>
 
       <div className="overflow-x-auto">
         <table className="table relative w-full">

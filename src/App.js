@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import AddProduct from "./Pages/Dashborad/AddProduct";
+import AddReview from "./Pages/Dashborad/AddReview";
 import Dashboard from "./Pages/Dashborad/Dashboard";
 import MyOrders from "./Pages/Dashborad/MyOrders";
 import Payment from "./Pages/Dashborad/Payment";
@@ -48,6 +49,7 @@ function App() {
               </RequireAuth>
             }
           ></Route>
+          <Route path="addReview" element={<AddReview></AddReview>}></Route>
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
         </Route>
         <Route path="/login" element={<Login></Login>}></Route>
