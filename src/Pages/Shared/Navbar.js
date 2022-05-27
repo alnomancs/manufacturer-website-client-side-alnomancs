@@ -29,7 +29,7 @@ const Navbar = () => {
       <li>
         {user ? (
           <>
-            <Link to="">{user.displayName}</Link>
+            <Link to="">{user.email}</Link>
             <button onClick={handleSignout}>
               <Link to="/">Sign Out</Link>
             </button>

@@ -29,6 +29,7 @@ const Purchase = () => {
       productName: product.name,
       productPrice: product.price,
       orderQty: data.qty,
+      totalAmount: parseFloat(data.qty) * parseFloat(product.price),
       clientEmail: user.email,
       paymentStatus: "unpaid",
     };

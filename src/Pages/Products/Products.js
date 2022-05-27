@@ -19,13 +19,6 @@ const Products = () => {
         {products.slice(0, 6).map((product) => (
           <Product key={product._id} product={product}></Product>
         ))}
-
-        {/* <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product> */}
       </div>
     </div>
   );
