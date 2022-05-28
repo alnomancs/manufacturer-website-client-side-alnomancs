@@ -8,6 +8,7 @@ const AllOrdersRow = ({ order, index }) => {
       <td>{order.productPrice}</td>
       <td>{order.orderQty}</td>
       <td>{order.totalAmount}</td>
+      
     </tr>
   );
 };

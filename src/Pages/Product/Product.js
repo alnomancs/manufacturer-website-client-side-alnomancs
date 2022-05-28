@@ -14,7 +14,7 @@ const Product = ({ product }) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure className="px-10 pt-10">
-        <img src={img} alt="tools" className="rounded-xl" />
+        <img src={img} alt="tools" className="rounded-xl w-28" />
       </figure>
       <div className="card-body text-left">
         <h2 className="card-title">{name}</h2>

@@ -5,21 +5,19 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
-import OrderDeleteModal from "./OrderDeleteModal";
-import OrderRow from "./OrderRow";
+import AllProductsRow from "./AllProductsRow";
+import ProductDeleteModal from "./ProductDeleteModal";
 
-const MyOrders = () => {
-  const [cancleOrder, setCancleOrder] = useState(null);
+const AllProducts = () => {
   const [user, loading, error] = useAuthState(auth);
+  const [deleteProduct, setDeleteProduct] = useState(null);
   const navigate = useNavigate();
-
   const {
-    data: orders,
+    data: products,
     isLoading,
-    isError,
     refetch,
   } = useQuery("users", () =>
-    fetch(`http://localhost:5001/orders?clientEmail=${user.email}`, {
+    fetch(`http://localhost:5001/products`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -34,47 +32,47 @@ const MyOrders = () => {
     })
   );
   if (loading || isLoading) return <Loading></Loading>;
-  if (error || isError) return console.log(error);
-
   return (
     <div className="overflow-auto">
-      <h2 className="text-5xl ">My orders {orders?.length}</h2>
+      <h2 className="text-5xl ">All Product List {products?.length}</h2>
 
       <div className="overflow-x-auto">
         <table className="table relative w-full">
           <thead>
             <tr>
-              <th className="sticky top-0"></th>
+              <th className="sticky top-0">Sl</th>
+              <th className="sticky top-0">img</th>
               <th className="sticky top-0">Product Name</th>
-              <th className="sticky top-0">Quantity</th>
+              <th className="sticky top-0">Description</th>
+              <th className="sticky top-0">Minimum Qty</th>
+              <th className="sticky top-0">Available Quantity</th>
               <th className="sticky top-0">Price</th>
-              <th className="sticky top-0">Total</th>
-              <th className="sticky top-0">Status</th>
+              <th className="sticky top-0"></th>
             </tr>
           </thead>
           <tbody>
-            {orders?.map((order, index) => (
-              <OrderRow
-                key={order?._id}
-                order={order}
+            {products?.map((product, index) => (
+              <AllProductsRow
+                key={product?._id}
+                product={product}
                 index={index}
                 refetch={refetch}
-                setCancleOrder={setCancleOrder}
-              ></OrderRow>
+                setDeleteProduct={setDeleteProduct}
+              ></AllProductsRow>
             ))}
           </tbody>
         </table>
       </div>
-      {cancleOrder && (
-        <OrderDeleteModal
-          key={cancleOrder?._id}
-          cancleOrder={cancleOrder}
-          setCancleOrder={setCancleOrder}
+      {deleteProduct && (
+        <ProductDeleteModal
+          key={deleteProduct?._id}
+          deleteProduct={deleteProduct}
+          setDeleteProduct={setDeleteProduct}
           refetch={refetch}
-        ></OrderDeleteModal>
+        ></ProductDeleteModal>
       )}
     </div>
   );
 };
 
-export default MyOrders;
+export default AllProducts;

@@ -11,7 +11,7 @@ const MyProfile = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+
     fetch(`http://localhost:5001/myprofile/${user.email}`, {
       method: "PUT",
       headers: {
@@ -25,7 +25,7 @@ const MyProfile = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+
         if (data.modifiedCount > 0) {
           toast.success("Succesfully update your profile");
           reset();

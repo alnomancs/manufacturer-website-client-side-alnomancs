@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 
-const CancleModal = ({ cancleOrder, setCancleOrder, refetch }) => {
+const OrderDeleteModal = ({ cancleOrder, setCancleOrder, refetch }) => {
   const handleCancle = () => {
     const url = `http://localhost:5001/order/${cancleOrder._id}`;
     console.log(url);
@@ -14,12 +14,12 @@ const CancleModal = ({ cancleOrder, setCancleOrder, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.deletedCount) {
+          toast.success("your order has been cancled");
+          setCancleOrder(null);
+          refetch();
+        }
       });
-
-    toast.success("your order has been cancled");
-
-    setCancleOrder(null);
-    refetch();
   };
   return (
     <div>
@@ -47,4 +47,4 @@ const CancleModal = ({ cancleOrder, setCancleOrder, refetch }) => {
   );
 };
 
-export default CancleModal;
+export default OrderDeleteModal;

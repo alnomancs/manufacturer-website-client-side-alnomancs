@@ -6,6 +6,7 @@ import "./App.css";
 import AddProduct from "./Pages/Dashborad/AddProduct";
 import AddReview from "./Pages/Dashborad/AddReview";
 import AllOrders from "./Pages/Dashborad/AllOrders";
+import AllProducts from "./Pages/Dashborad/AllProducts";
 import AllUser from "./Pages/Dashborad/AllUser";
 import Dashboard from "./Pages/Dashborad/Dashboard";
 import MyOrders from "./Pages/Dashborad/MyOrders";
@@ -57,6 +58,7 @@ function App() {
           <Route path="users" element={<AllUser></AllUser>}></Route>
           <Route path="allOrders" element={<AllOrders></AllOrders>}></Route>
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
+          <Route path="manageProduct" element={<AllProducts></AllProducts>}></Route>
         </Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
