@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import Blog from "./Pages/Blog/Blog";
 import AddProduct from "./Pages/Dashborad/AddProduct";
 import AddReview from "./Pages/Dashborad/AddReview";
 import AllOrders from "./Pages/Dashborad/AllOrders";
@@ -24,35 +25,12 @@ function App() {
   return (
     <div className="App max-w-7xl mx-auto">
       <Navbar></Navbar>
-
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
-        <Route
-          path="/purchase/:id"
-          element={
-            <RequireAuth>
-              <Purchase></Purchase>
-            </RequireAuth>
-          }
-        ></Route>
-
-        <Route
-          path="/dashboard"
-          element={
-            <RequireAuth>
-              <Dashboard></Dashboard>
-            </RequireAuth>
-          }
-        >
+        <Route path="/purchase/:id" element={<RequireAuth><Purchase></Purchase></RequireAuth>}></Route>
+        <Route path="/dashboard" element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
           <Route index element={<MyOrders></MyOrders>}></Route>
-          <Route
-            path="payment/:id"
-            element={
-              <RequireAuth>
-                <Payment></Payment>
-              </RequireAuth>
-            }
-          ></Route>
+          <Route path="payment/:id"element={<RequireAuth><Payment></Payment></RequireAuth>}></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
           <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
           <Route path="users" element={<AllUser></AllUser>}></Route>
@@ -60,9 +38,9 @@ function App() {
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
           <Route path="manageProduct" element={<AllProducts></AllProducts>}></Route>
         </Route>
+        <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
-
         <Route path="/*" element={<NotFound></NotFound>}></Route>
       </Routes>
 

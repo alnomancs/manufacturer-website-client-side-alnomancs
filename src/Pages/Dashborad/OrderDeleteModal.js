@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const OrderDeleteModal = ({ cancleOrder, setCancleOrder, refetch }) => {
   const handleCancle = () => {
-    const url = `http://localhost:5001/order/${cancleOrder._id}`;
+    const url = `https://stark-fortress-97754.herokuapp.com/order/${cancleOrder._id}`;
     console.log(url);
     fetch(url, {
       method: "DELETE",

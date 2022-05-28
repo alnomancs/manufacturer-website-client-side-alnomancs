@@ -7,7 +7,7 @@ import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
 const AddReview = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   const handleReview = (event) => {
     event.preventDefault();
@@ -19,7 +19,7 @@ const AddReview = () => {
     };
     console.log(review);
     // send to your database
-    fetch(`http://localhost:5001/review`, {
+    fetch(`https://stark-fortress-97754.herokuapp.com/review`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

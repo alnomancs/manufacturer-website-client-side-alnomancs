@@ -32,7 +32,7 @@ const AddProduct = () => {
             img: img,
             description: data.description,
           };
-          fetch("http://localhost:5001/product", {
+          fetch("https://stark-fortress-97754.herokuapp.com/product", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -95,15 +95,6 @@ const AddProduct = () => {
                 type="number"
                 required
                 {...register("price", { required: true })}
-              />
-
-              <input
-                type="file"
-                className="input input-bordered w-full max-w-xs"
-                {...register("image", {
-                  required: { value: true, message: "Image is Required" },
-                  
-                })}
               />
               <input
                 className="input input-bordered w-full max-w-xs mt-3"

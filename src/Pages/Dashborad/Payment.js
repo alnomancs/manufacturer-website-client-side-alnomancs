@@ -12,13 +12,13 @@ const stripePromise = loadStripe(
 );
 
 const Payment = () => {
-  const [user, loading] = useAuthState(auth);
+  const [loading] = useAuthState(auth);
   const [order, setOrder] = useState({});
 
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5001/order/${id}`)
+    fetch(`https://stark-fortress-97754.herokuapp.com/order/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setOrder(data);

@@ -44,10 +44,7 @@ const Signup = () => {
       </p>
     );
   }
-  // if (user || googleUser) {
-  //   console.log(googleUser || user);
-  //   navigate(from, { replace: true });
-  // }
+
   if (token) {
     navigate(from, { replace: true });
   }

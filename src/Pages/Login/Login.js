@@ -1,18 +1,52 @@
 import React from "react";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
+import useToken from "../../hooks/useToken";
 import googleIcon from "../../images/google.png";
+import Loading from "../Shared/Loading";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   let signInErrorMessage;
+
+  //Email and password signin
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  // Social Login google
+  const [signInWithGoogle, googleUser, googlLoading, googleError] =
+    useSignInWithGoogle(auth);
+
+  const [token] = useToken(user || googleUser);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  if (loading || googlLoading) return <Loading></Loading>;
+  if (error || googleError) {
+    signInErrorMessage = (
+      <p className="font-bold text-red-500">
+        {error?.message || googleError?.message}
+      </p>
+    );
+  }
+  if (token) {
+    navigate(from, { replace: true });
+  }
+
   const onSubmit = (data) => {
-    console.log(data);
-  }; // your form submit function which will invoke after successful validation
+    signInWithEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <div className="hero min-h-screen bg-gradient-to-r from-slate-500 to-emerald-100 rounded-2xl">
@@ -104,39 +138,13 @@ const Login = () => {
             </p>
 
             <div className="divider">OR</div>
-            <button className="btn btn-outline ">
+            <button
+              className="btn btn-outline "
+              onClick={() => signInWithGoogle()}
+            >
               <img className="w-8 mx-2" src={googleIcon} alt="" /> Countinue
               With Google
             </button>
-
-            {/* <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="text"
-                placeholder="email"
-                className="input input-bordered"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="text"
-                placeholder="password"
-                className="input input-bordered"
-              />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
-            </div>
-            <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
-            </div> */}
           </div>
         </div>
       </div>

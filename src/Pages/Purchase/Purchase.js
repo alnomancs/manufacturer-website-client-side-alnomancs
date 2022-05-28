@@ -14,7 +14,7 @@ const Purchase = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const url = `http://localhost:5001/purchase/${id}`;
+  const url = `https://stark-fortress-97754.herokuapp.com/purchase/${id}`;
 
   const { data: product, isLoading } = useQuery(["purchase", id], () =>
     fetch(url, {
@@ -50,7 +50,7 @@ const Purchase = () => {
     console.log(order);
 
     //send order to database
-    fetch("http://localhost:5001/order", {
+    fetch("https://stark-fortress-97754.herokuapp.com/order", {
       method: "POST",
       headers: {
         "content-type": "application/json",

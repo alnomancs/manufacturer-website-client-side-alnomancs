@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -6,26 +5,27 @@ import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
 const MyProfile = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
-
-    fetch(`http://localhost:5001/myprofile/${user.email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://stark-fortress-97754.herokuapp.com/myprofile/${user.email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => {
         if (res.status === 403) return toast.error("Failed to make admin");
         return res.json();
       })
       .then((data) => {
-
         if (data.modifiedCount > 0) {
           toast.success("Succesfully update your profile");
           reset();

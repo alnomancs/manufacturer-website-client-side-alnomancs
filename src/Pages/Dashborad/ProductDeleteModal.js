@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const ProductDeleteModal = ({ deleteProduct, setDeleteProduct, refetch }) => {
   const handleDelete = () => {
-    const url = `http://localhost:5001/product/${deleteProduct._id}`;
+    const url = `https://stark-fortress-97754.herokuapp.com/product/${deleteProduct._id}`;
     console.log(url);
     fetch(url, {
       method: "DELETE",

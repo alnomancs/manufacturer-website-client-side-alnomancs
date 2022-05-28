@@ -1,17 +1,17 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const CheckoutForm = ({ order }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
-  const [clientSecret, setClientSecret] = useState("");
+  // const [clientSecret, setClientSecret] = useState("");
 
   const { totalAmount } = order;
   console.log(totalAmount);
 
   //   useEffect(() => {
-  //     fetch("http://localhost:5001/create-payment-intent", {
+  //     fetch("https://stark-fortress-97754.herokuapp.com/create-payment-intent", {
   //       method: "POST",
   //       headers: {
   //         "content-type": "application/json",
@@ -39,7 +39,7 @@ const CheckoutForm = ({ order }) => {
     if (card == null) {
       return;
     }
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });

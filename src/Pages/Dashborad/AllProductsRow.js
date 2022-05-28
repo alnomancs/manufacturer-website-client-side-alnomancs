@@ -12,10 +12,10 @@ const AllProductsRow = ({ product, index, refetch, setDeleteProduct }) => {
           </div>
         </div>
       </th>
-      <td>{name}</td>
+      <td>{name?.length > 20 ? name.slice(0, 15) + "..." : name}</td>
       <td>
-        {description?.length > 30
-          ? description.slice(0, 10) + "..."
+        {description?.length > 50
+          ? description.slice(0, 20) + "..."
           : description}
       </td>
 

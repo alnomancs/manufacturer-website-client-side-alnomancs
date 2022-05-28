@@ -3,16 +3,13 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
+import Loading from "../Shared/Loading";
 import AllOrdersRow from "./AllOrdersRow";
 
 const AllOrders = () => {
   const navigate = useNavigate();
-  const {
-    data: orders,
-    isLoading,
-    isError,
-  } = useQuery("users", () =>
-    fetch(`http://localhost:5001/orders`, {
+  const { data: orders, isLoading } = useQuery("users", () =>
+    fetch(`https://stark-fortress-97754.herokuapp.com/orders`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -26,6 +23,8 @@ const AllOrders = () => {
       return res.json();
     })
   );
+
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <div className="overflow-auto">

@@ -19,12 +19,15 @@ const MyOrders = () => {
     isError,
     refetch,
   } = useQuery("users", () =>
-    fetch(`http://localhost:5001/orders?clientEmail=${user.email}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => {
+    fetch(
+      `https://stark-fortress-97754.herokuapp.com/orders?clientEmail=${user.email}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");

@@ -1,6 +1,5 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
@@ -9,7 +8,6 @@ import AllProductsRow from "./AllProductsRow";
 import ProductDeleteModal from "./ProductDeleteModal";
 
 const AllProducts = () => {
-  const [user, loading, error] = useAuthState(auth);
   const [deleteProduct, setDeleteProduct] = useState(null);
   const navigate = useNavigate();
   const {
@@ -17,7 +15,7 @@ const AllProducts = () => {
     isLoading,
     refetch,
   } = useQuery("users", () =>
-    fetch(`http://localhost:5001/products`, {
+    fetch(`https://stark-fortress-97754.herokuapp.com/products`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -31,7 +29,8 @@ const AllProducts = () => {
       return res.json();
     })
   );
-  if (loading || isLoading) return <Loading></Loading>;
+
+  if (isLoading) return <Loading></Loading>;
   return (
     <div className="overflow-auto">
       <h2 className="text-5xl ">All Product List {products?.length}</h2>
