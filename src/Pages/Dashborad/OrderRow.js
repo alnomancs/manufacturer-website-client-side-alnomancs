@@ -12,7 +12,11 @@ const OrderRow = ({ order, index, setCancleOrder, refetch }) => {
   return (
     <tr key={order._id}>
       <th>{index + 1}</th>
-      <td>{order.productName}</td>
+      <td>
+        {order.productName?.length > 20
+          ? order.productName.slice(0, 20) + "..."
+          : order.productName}
+      </td>
       <td>{order.productPrice}</td>
       <td>{order.orderQty}</td>
       <td>{order.totalAmount}</td>

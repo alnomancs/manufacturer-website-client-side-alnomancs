@@ -1,6 +1,30 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 const AllOrdersRow = ({ order, index }) => {
+  const handleDelete = () => {
+    const answer = window.confirm("Delete data?");
+    if (answer) {
+      console.log("delete");
+
+      const url = `http://localhost:5001/order/${order._id}`;
+      fetch(url, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount) {
+            toast.success("your order has been cancled");
+          }
+        });
+    } else {
+      console.log("not delete");
+    }
+  };
   return (
     <tr key={order._id}>
       <th>{index + 1}</th>
@@ -10,7 +34,9 @@ const AllOrdersRow = ({ order, index }) => {
       <td>{order.totalAmount}</td>
       <td>
         {order.paymentStatus === false ? (
-          <label className="btn btn-error btn-xs mx-2">Unpaid</label>
+          <label className="btn btn-error btn-xs mx-2" onClick={handleDelete}>
+            Unpaid
+          </label>
         ) : (
           <label className="btn btn-success btn-xs">
             {order.paymentStatus && "Paid"}

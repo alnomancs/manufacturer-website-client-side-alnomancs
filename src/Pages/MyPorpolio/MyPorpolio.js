@@ -3,7 +3,7 @@ import myPic from "../../images/IMG_0098.JPG";
 
 const MyPorpolio = () => {
   return (
-    <div class="hero min-h-screen text-left">
+    <div class="hero min-h-screen text-left bg-gradient-to-r from-purple-200 to-rose-200">
       <div class="hero-content flex-col lg:flex-row">
         <img src={myPic} alt="" class="max-w-sm rounded-lg shadow-2xl" />
         <div>
