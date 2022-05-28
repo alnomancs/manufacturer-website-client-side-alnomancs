@@ -33,22 +33,22 @@ const Blog = () => {
             <p>
               There are four main types of state you need to properly manage in
               our React apps: <br />
-              1. Local state => Local state is data we manage in one or another
+              1. Local state {"=>"} Local state is data we manage in one or another
               component. Local state is most often managed in React using the
               useState hook.
               <br />
-              2. Global state => Global state is data we manage across multiple
+              2. Global state {"=>"} Global state is data we manage across multiple
               components. Global state is necessary when we want to get and
               update data anywhere in our app, or in multiple components at
               least. A common example of global state is authenticated user
               state.
               <br />
-              3. Server state => Data that comes from an external server that
+              3. Server state {"=>"} Data that comes from an external server that
               must be integrated with our UI state. Server state is a simple
               concept, but can be hard to manage alongside all of our local and
               global UI state.
               <br />
-              4. URL state => Data that exists on our URLs, including the
+              4. URL state {"=>"} Data that exists on our URLs, including the
               pathname and query parameters. URL state is often missing as a
               category of state, but it is an important one. In many cases, a
               lot of major parts of our application rely upon accessing URL

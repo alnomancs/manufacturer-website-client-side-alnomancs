@@ -24,6 +24,7 @@ const MyOrders = () => {
       {
         method: "GET",
         headers: {
+          "content-type": "application/json",
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }
@@ -53,6 +54,7 @@ const MyOrders = () => {
               <th className="sticky top-0">Price</th>
               <th className="sticky top-0">Total</th>
               <th className="sticky top-0">Status</th>
+              <th className="sticky top-0">Tr. id</th>
             </tr>
           </thead>
           <tbody>

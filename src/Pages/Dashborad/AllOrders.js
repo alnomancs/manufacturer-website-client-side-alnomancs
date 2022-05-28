@@ -39,6 +39,7 @@ const AllOrders = () => {
               <th className="sticky top-0">Quantity</th>
               <th className="sticky top-0">Price</th>
               <th className="sticky top-0">Total</th>
+              <th className="sticky top-0">Status</th>
             </tr>
           </thead>
           <tbody>

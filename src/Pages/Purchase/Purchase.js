@@ -45,7 +45,8 @@ const Purchase = () => {
       orderQty: data.qty,
       totalAmount: parseFloat(data.qty) * parseFloat(product.price),
       clientEmail: user.email,
-      paymentStatus: "unpaid",
+      clientName: user.displayName,
+      paymentStatus: false,
     };
     console.log(order);
 
@@ -77,6 +78,8 @@ const Purchase = () => {
           <h1 className="text-5xl">Purchase Product</h1>
           <div className="card-body">
             <div className="card-body text-left">
+              <p>Client Name: {user.displayName}</p>
+              <p>Client Name: {user.email}</p>
               <h2 className="card-title">{product.name}</h2>
               <p>Minimum Order: {product.minimumQty}ps</p>
               <p>Available Qty: {product.availableQty}</p>
@@ -88,7 +91,7 @@ const Purchase = () => {
                   required
                   type="number"
                   {...register("qty", {
-                    onChange: (e) => {
+                    onBlur: (e) => {
                       const qty = e.target.value;
 
                       if (

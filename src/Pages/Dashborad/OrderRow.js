@@ -7,7 +7,6 @@ const OrderRow = ({ order, index, setCancleOrder, refetch }) => {
 
   const handlePayment = () => {
     navigate(`payment/${order._id}`);
-    // console.log(order);
   };
 
   return (
@@ -18,7 +17,7 @@ const OrderRow = ({ order, index, setCancleOrder, refetch }) => {
       <td>{order.orderQty}</td>
       <td>{order.totalAmount}</td>
       <td>
-        {order.paymentStatus === "unpaid" ? (
+        {order.paymentStatus === false ? (
           <>
             <label
               className="btn btn-error btn-xs"
@@ -39,10 +38,11 @@ const OrderRow = ({ order, index, setCancleOrder, refetch }) => {
           </>
         ) : (
           <label className="btn btn-outline btn-xs">
-            {order.paymentStatus}
+            {order.paymentStatus && "Paid"}
           </label>
         )}
       </td>
+      <td>{order.transactionId}</td>
     </tr>
   );
 };
