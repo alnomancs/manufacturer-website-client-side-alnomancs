@@ -2,7 +2,7 @@
 
 ## Project Live link
 
-https://warehouse-management-2b449.web.app/
+https://manufacturer-44940.web.app/
 
 ## Web app information
 

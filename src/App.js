@@ -15,6 +15,7 @@ import MyProfile from "./Pages/Dashborad/MyProfile";
 import Payment from "./Pages/Dashborad/Payment";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
+import MyPorpolio from "./Pages/MyPorpolio/MyPorpolio";
 import Purchase from "./Pages/Purchase/Purchase";
 import Navbar from "./Pages/Shared/Navbar";
 import NotFound from "./Pages/Shared/NotFound";
@@ -39,6 +40,7 @@ function App() {
           <Route path="manageProduct" element={<AllProducts></AllProducts>}></Route>
         </Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
+        <Route path="/myporpolio" element={<MyPorpolio></MyPorpolio>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="/*" element={<NotFound></NotFound>}></Route>
