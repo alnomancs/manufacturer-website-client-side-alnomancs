@@ -29,10 +29,10 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/purchase/:id" element={<RequireAuth><Purchase></Purchase></RequireAuth>}></Route>
         <Route path="/dashboard" element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-          <Route index element={<MyOrders></MyOrders>}></Route>
+          <Route index  element={<MyProfile></MyProfile>}></Route>
+          <Route path="myorder" element={<MyOrders></MyOrders>}></Route>
           <Route path="payment/:id"element={<RequireAuth><Payment></Payment></RequireAuth>}></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
-          <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
           <Route path="users" element={<AllUser></AllUser>}></Route>
           <Route path="allOrders" element={<AllOrders></AllOrders>}></Route>
           <Route path="addproduct" element={<AddProduct></AddProduct>}></Route>
