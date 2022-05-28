@@ -7,7 +7,7 @@ const AllOrdersRow = ({ order, index }) => {
     if (answer) {
       console.log("delete");
 
-      const url = `http://localhost:5001/order/${order._id}`;
+      const url = `https://manufacturer-44940.web.app/order/${order._id}`;
       fetch(url, {
         method: "DELETE",
         headers: {
